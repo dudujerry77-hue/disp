@@ -56,10 +56,17 @@ export function requireConfig() {
 window.addEventListener("offline", () => toast("You are offline. Changes will not sync until the connection returns.", "error"));
 window.addEventListener("online", () => toast("Connection restored."));
 
+export function sitePath(path) {
+  const clean = String(path || "/").replace(/^\/+/, "");
+  const segments = location.pathname.split("/").filter(Boolean);
+  const repoBase = segments.length && !["admin", "customer", "delivery", "css", "js"].includes(segments[0]) ? `/${segments[0]}` : "";
+  return `${repoBase}/${clean}`.replace(/\/+/g, "/").replace(/\?\//g, "?");
+}
+
 export function routeForRole(role) {
-  if (role === "ADMIN") return "/admin/dashboard.html";
-  if (role === "DELIVERY_GUY") return "/delivery/dashboard.html";
-  return "/customer/dashboard.html";
+  if (role === "ADMIN") return sitePath("/admin/dashboard.html");
+  if (role === "DELIVERY_GUY") return sitePath("/delivery/dashboard.html");
+  return sitePath("/customer/dashboard.html");
 }
 
 export function statusTimeline(status) {

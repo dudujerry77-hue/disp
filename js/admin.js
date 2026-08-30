@@ -1,5 +1,5 @@
 import { bindLogout, requireRole } from "./auth.js";
-import { emptyState, label, money, qs, setLoading, supabase, toast } from "./app.js";
+import { emptyState, label, money, qs, setLoading, sitePath, supabase, toast } from "./app.js";
 import { bindProductForm, loadProducts } from "./products.js";
 
 let drivers = [];
@@ -84,7 +84,7 @@ function adminOrderCard(order) {
     <div class="row wrap">
       ${["CONFIRMED", "PREPARING", "PICKED_UP", "OUT_FOR_DELIVERY", "DELIVERED", "CANCELLED"].map((s) => `<button class="btn ghost small" data-id="${order.id}" data-status="${s}">${label(s)}</button>`).join("")}
       <select data-assign="${order.id}"><option value="">Assign driver</option>${drivers.map((d) => `<option value="${d.id}" ${order.deliveries?.delivery_guy_id === d.id ? "selected" : ""}>${d.full_name}</option>`).join("")}</select>
-      <a class="btn small" href="/admin/order-details.html?id=${order.id}">Open</a>
+      <a class="btn small" href="${sitePath(`/admin/order-details.html?id=${order.id}`)}">Open</a>
     </div>
   </article>`;
 }

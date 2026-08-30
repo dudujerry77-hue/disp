@@ -1,4 +1,4 @@
-import { routeForRole, supabase, toast } from "./app.js";
+import { routeForRole, sitePath, supabase, toast } from "./app.js";
 
 export async function currentUserProfile() {
   const { data: sessionData } = await supabase.auth.getSession();
@@ -12,7 +12,7 @@ export async function currentUserProfile() {
 export async function requireRole(allowedRoles) {
   const profile = await currentUserProfile();
   if (!profile) {
-    location.href = `/login.html?next=${encodeURIComponent(location.pathname)}`;
+    location.href = sitePath(`/login.html?next=${encodeURIComponent(location.pathname)}`);
     return null;
   }
   if (!allowedRoles.includes(profile.role)) {
@@ -25,7 +25,7 @@ export async function requireRole(allowedRoles) {
 
 export async function signOut() {
   await supabase.auth.signOut();
-  location.href = "/index.html";
+  location.href = sitePath("/index.html");
 }
 
 export function bindLogout() {
@@ -65,6 +65,6 @@ export function initRegister() {
     button.disabled = false;
     if (error) return toast(error.message, "error");
     toast("Account created. Check your email if confirmation is enabled.");
-    location.href = "/customer/dashboard.html";
+    location.href = sitePath("/customer/dashboard.html");
   });
 }

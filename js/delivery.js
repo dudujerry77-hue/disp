@@ -1,5 +1,5 @@
 import { bindLogout, requireRole } from "./auth.js";
-import { DELIVERY_FLOW, emptyState, label, qs, setLoading, supabase, toast } from "./app.js";
+import { DELIVERY_FLOW, emptyState, label, qs, setLoading, sitePath, supabase, toast } from "./app.js";
 import { clearTracking, startDriverSharing } from "./location.js";
 
 async function boot() {
@@ -25,7 +25,7 @@ async function loadDeliveries() {
     <div class="order-items">${d.orders.order_items.map((i) => `<span>${i.quantity}x ${i.product_name}</span>`).join("")}</div>
     <p>${d.orders.delivery_instructions || "No delivery instructions."}</p>
     <div class="row wrap">
-      <a class="btn small" href="/delivery/tracking.html?id=${d.order_id}">Start Delivery</a>
+      <a class="btn small" href="${sitePath(`/delivery/tracking.html?id=${d.order_id}`)}">Start Delivery</a>
       ${DELIVERY_FLOW.map((s) => `<button class="btn ghost small" data-order="${d.order_id}" data-status="${s}">${label(s)}</button>`).join("")}
     </div>
   </article>`).join("");

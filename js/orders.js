@@ -1,5 +1,5 @@
 import { clearCart, getCart, renderCart } from "./cart.js";
-import { emptyState, label, money, qs, setLoading, statusTimeline, supabase, toast } from "./app.js";
+import { emptyState, label, money, qs, setLoading, sitePath, statusTimeline, supabase, toast } from "./app.js";
 
 export async function placeOrder(profile) {
   const form = qs("#checkoutForm");
@@ -21,7 +21,7 @@ export async function placeOrder(profile) {
     await supabase.from("order_events").insert({ order_id: order.id, status: "ORDER_PLACED", note: "Order placed by customer" });
     clearCart();
     toast("Order placed successfully");
-    location.href = "/customer/orders.html";
+    location.href = sitePath("/customer/orders.html");
   });
   if (form && profile?.address) form.address.value = profile.address;
   renderCart();
@@ -44,8 +44,8 @@ export function renderOrders(node, orders, customer = false) {
     <div class="order-items">${(order.order_items || []).map((i) => `<span>${i.quantity}x ${i.product_name}</span>`).join("")}</div>
     <div class="row between"><strong>${money(order.total)}</strong><div class="row">
       ${customer && ["ORDER_PLACED", "CONFIRMED"].includes(order.status) ? `<button class="btn ghost small" data-cancel="${order.id}">Cancel</button>` : ""}
-      ${customer && order.status === "OUT_FOR_DELIVERY" ? `<a class="btn small" href="/customer/tracking.html?id=${order.id}">Track Delivery</a>` : ""}
-      <a class="btn ghost small" href="/customer/order-details.html?id=${order.id}">Details</a>
+      ${customer && order.status === "OUT_FOR_DELIVERY" ? `<a class="btn small" href="${sitePath(`/customer/tracking.html?id=${order.id}`)}">Track Delivery</a>` : ""}
+      <a class="btn ghost small" href="${sitePath(`/customer/order-details.html?id=${order.id}`)}">Details</a>
     </div></div>
   </article>`).join("");
   node.querySelectorAll("[data-cancel]").forEach((button) => button.onclick = () => cancelOrder(button.dataset.cancel));
@@ -63,7 +63,7 @@ export async function loadOrderDetails(role = "customer") {
     <p><strong>Instructions:</strong> ${order.delivery_instructions || "None"}</p>
     <div class="table">${order.order_items.map((i) => `<div><span>${i.product_name}</span><span>${i.quantity} x ${money(i.unit_price)}</span></div>`).join("")}</div>
     <h3>Total ${money(order.total)}</h3>
-    ${order.status === "OUT_FOR_DELIVERY" && role === "customer" ? `<a class="btn" href="/customer/tracking.html?id=${order.id}">Track Delivery</a>` : ""}
+    ${order.status === "OUT_FOR_DELIVERY" && role === "customer" ? `<a class="btn" href="${sitePath(`/customer/tracking.html?id=${order.id}`)}">Track Delivery</a>` : ""}
   </section>`;
 }
 

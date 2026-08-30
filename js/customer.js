@@ -1,5 +1,5 @@
 import { bindLogout, currentUserProfile, requireRole } from "./auth.js";
-import { qs, supabase, toast } from "./app.js";
+import { qs, sitePath, supabase, toast } from "./app.js";
 import { renderCart } from "./cart.js";
 import { loadProducts } from "./products.js";
 import { loadCustomerOrders, loadOrderDetails, placeOrder } from "./orders.js";
@@ -23,7 +23,7 @@ async function boot() {
       if (!profile) {
         event.preventDefault();
         toast("Sign in before placing an order.", "error");
-        location.href = "/login.html";
+        location.href = sitePath("/login.html");
       }
     }, { capture: true });
   }
