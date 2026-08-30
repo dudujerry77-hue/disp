@@ -1,0 +1,45 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Dispatchly | Order & Delivery Tracking</title>
+  <link rel="stylesheet" href="/css/style.css">
+  <link rel="stylesheet" href="/css/customer.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/index.html"><span class="brand-mark"></span>Dispatchly</a>
+    <nav class="nav">
+      <a href="/login.html" class="btn ghost small">Customer Login</a>
+      <a href="/admin/login.html" class="btn ghost small">Admin</a>
+      <a href="/delivery/login.html" class="btn ghost small">Delivery Guy</a>
+      <a href="/register.html" class="btn small">Register</a>
+    </nav>
+  </header>
+  <section class="hero">
+    <div>
+      <h1>Fast orders, live delivery visibility.</h1>
+      <p>Browse fresh meals and essentials, place an order, and track the driver in real time once delivery begins.</p>
+      <a class="btn" href="#shop">Start Order</a>
+    </div>
+  </section>
+  <main id="shop" class="container checkout-layout">
+    <section>
+      <div class="row between"><h2>Available Products</h2><span class="pill">Live catalog</span></div>
+      <div id="productGrid" class="grid"></div>
+    </section>
+    <aside class="panel">
+      <h2>Your Cart</h2>
+      <div id="cartItems"></div>
+      <div class="row between"><strong>Total</strong><strong id="cartTotal">$0.00</strong></div>
+      <form id="checkoutForm">
+        <label>Delivery address<input name="address" required placeholder="Street, city, state"></label>
+        <label>Delivery instructions<textarea name="instructions" placeholder="Gate code, drop-off note, etc."></textarea></label>
+        <button class="btn" type="submit">Place Order</button>
+      </form>
+    </aside>
+  </main>
+  <script type="module" src="/js/customer.js"></script>
+</body>
+</html>

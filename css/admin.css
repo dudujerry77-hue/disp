@@ -1,0 +1,7 @@
+.admin-shell .sidebar { background: #15202b; }
+.admin-shell .stat { padding: 18px; }
+.admin-shell .stat span { color: var(--muted); }
+.admin-shell .stat strong { display: block; font-size: 34px; margin-top: 8px; }
+.admin-line { grid-template-columns: 120px 1fr auto; align-items: stretch; }
+.admin-line img { height: 100%; min-height: 120px; }
+@media (max-width: 760px) { .admin-line { grid-template-columns: 1fr; } }

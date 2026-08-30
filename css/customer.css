@@ -1,0 +1,3 @@
+.customer-shell .sidebar { background: #0f2d2a; }
+.checkout-layout { display: grid; grid-template-columns: 1.4fr .8fr; gap: 20px; align-items: start; }
+@media (max-width: 860px) { .checkout-layout { grid-template-columns: 1fr; } }
